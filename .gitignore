@@ -3,11 +3,15 @@ bin/
 target/
 *.class
 
-# Compiler sources list
+# Temporary compiler list
 sources.txt
 
-# Generated invoices
+# Generated invoices during runtime
 invoices/
+
+# Helper push batch scripts
+push_day*.bat
+
 
 # IDE files
 .vscode/
