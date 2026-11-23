@@ -1,0 +1,16 @@
+# Compiled class files
+bin/
+target/
+*.class
+
+# Compiler sources list
+sources.txt
+
+# Generated invoices
+invoices/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.log
