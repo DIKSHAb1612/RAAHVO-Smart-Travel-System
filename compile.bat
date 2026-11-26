@@ -18,7 +18,7 @@ if exist "C:\Program Files\Java\jdk-26.0.1\bin\javac.exe" (
 echo Using compiler: !JAVAC_CMD!
 
 dir /s /b src\*.java > sources_list.txt
-"!JAVAC_CMD!" -d bin @sources_list.txt
+"!JAVAC_CMD!" --release 17 -d bin @sources_list.txt
 set "COMPILE_STATUS=%ERRORLEVEL%"
 del sources_list.txt
 
