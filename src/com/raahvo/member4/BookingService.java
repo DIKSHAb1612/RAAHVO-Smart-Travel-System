@@ -123,7 +123,7 @@ public class BookingService {
 
                 // 3a. Insert into Bookings table
                 String bookingSql = "INSERT INTO Bookings (booking_pnr, user_id, booking_type, booking_date, travel_date, total_amount, discount_amount, final_payable, status) "
-                        + "VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, 'CONFIRMED');";
+                        + "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, 'CONFIRMED');";
                 try (PreparedStatement stmt = conn.prepareStatement(bookingSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
                     stmt.setString(1, pnr);
                     stmt.setInt(2, userId);
@@ -158,7 +158,7 @@ public class BookingService {
 
                 // 3c. Insert into Payments audit table
                 String txnRef = "TXN-" + System.currentTimeMillis();
-                String paySql = "INSERT INTO Payments (booking_id, transaction_ref, payment_method, amount, payment_status, payment_timestamp) VALUES (?, ?, ?, ?, 'SUCCESS', GETDATE());";
+                String paySql = "INSERT INTO Payments (booking_id, transaction_ref, payment_method, amount, payment_status, payment_timestamp) VALUES (?, ?, ?, ?, 'SUCCESS', CURRENT_TIMESTAMP);";
                 try (PreparedStatement stmt = conn.prepareStatement(paySql)) {
                     stmt.setInt(1, booking.getBookingId());
                     stmt.setString(2, txnRef);
