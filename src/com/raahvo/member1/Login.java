@@ -80,7 +80,7 @@ public class Login implements Authentication {
                     }
                 }
             } catch (SQLException e) {
-                ConsoleUI.printWarning("SQL Server query error during login: " + e.getMessage());
+                ConsoleUI.printWarning("Database query error during login: " + e.getMessage());
             }
         }
 

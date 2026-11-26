@@ -152,4 +152,20 @@ public class InputValidator {
             ConsoleUI.printWarning("Please enter 'Y' for Yes or 'N' for No.");
         }
     }
+
+    /**
+     * Reads and validates a password with a minimum length requirement.
+     * Prevents empty or too-short passwords by continuously reprompting on the same screen.
+     */
+    public static String readPassword(Scanner scanner, String prompt, int minLength) {
+        while (true) {
+            System.out.print(ConsoleUI.WHITE + prompt + ConsoleUI.RESET);
+            String pass = scanner.nextLine().trim();
+            if (pass.length() < minLength) {
+                ConsoleUI.printError("Password must be at least " + minLength + " characters long. Please try again.");
+                continue;
+            }
+            return pass;
+        }
+    }
 }

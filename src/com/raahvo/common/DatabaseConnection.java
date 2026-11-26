@@ -33,6 +33,7 @@ public class DatabaseConnection {
     private Properties properties;
     private boolean isSqlServerConnected = false;
     private String dbMode = "AUTO";
+    private boolean initialLogShown = false;
 
     /**
      * Private constructor enforces Singleton pattern
@@ -101,7 +102,10 @@ public class DatabaseConnection {
             this.connection = DriverManager.getConnection(url, user, pass);
             this.isSqlServerConnected = true;
             String dbType = url.toLowerCase().contains("mysql") ? "MySQL" : "Microsoft SQL Server";
-            ConsoleUI.printSuccess("Connected successfully to " + dbType + " (RAAHVO_DB via JDBC)!");
+            if (!initialLogShown) {
+                ConsoleUI.printSuccess("Connected successfully to " + dbType + " (RAAHVO_DB via JDBC)!");
+                initialLogShown = true;
+            }
         } catch (ClassNotFoundException e) {
             String dbType = url.toLowerCase().contains("mysql") ? "MySQL" : "SQL Server";
             ConsoleUI.printWarning(dbType + " JDBC Driver not found in classpath. Operating in Resilient Offline Demo Mode.");
@@ -113,12 +117,26 @@ public class DatabaseConnection {
         }
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                initializeConnection();
+            }
+        } catch (SQLException e) {
+            initializeConnection();
+        }
         return connection;
     }
 
     public boolean isSqlServerConnected() {
-        return isSqlServerConnected;
+        try {
+            if (isSqlServerConnected && (connection == null || connection.isClosed())) {
+                initializeConnection();
+            }
+            return isSqlServerConnected && connection != null && !connection.isClosed();
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     public String getDbMode() {

@@ -168,4 +168,12 @@ public class Registration {
     public List<User> getAllUsers() {
         return new ArrayList<>(inMemoryDb.users.values());
     }
+
+    /**
+     * Checks if an email is already registered in the system (case-insensitive)
+     */
+    public boolean isEmailRegistered(String email) {
+        if (email == null) return false;
+        return inMemoryDb.registeredEmails.contains(email.trim().toLowerCase());
+    }
 }

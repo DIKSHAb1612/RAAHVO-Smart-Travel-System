@@ -566,23 +566,50 @@ public class Main {
     private static boolean promptLogin() {
         ConsoleUI.printSectionHeader("USER LOGIN");
         String email = InputValidator.readEmail(scanner, "Email: ");
-        String password = InputValidator.readNonEmptyString(scanner, "Password: ");
-        try {
-            User u = auth.login(email, password);
-            ConsoleUI.printSuccess("Welcome back, " + u.getName() + "!");
-            return true;
-        } catch (AuthenticationException e) {
-            ConsoleUI.printError("Authentication failed: " + e.getMessage());
-            return false;
+        
+        while (true) {
+            System.out.print(ConsoleUI.WHITE + "Password (or type 'cancel' to return): " + ConsoleUI.RESET);
+            String password = scanner.nextLine().trim();
+
+            if (password.equalsIgnoreCase("cancel")) {
+                ConsoleUI.printWarning("Login cancelled.");
+                return false;
+            }
+            if (password.isEmpty()) {
+                ConsoleUI.printWarning("Password cannot be empty.");
+                continue;
+            }
+
+            try {
+                User u = auth.login(email, password);
+                ConsoleUI.printSuccess("Welcome back, " + u.getName() + "!");
+                return true;
+            } catch (AuthenticationException e) {
+                ConsoleUI.printError("Authentication failed: " + e.getMessage());
+                if (e.getMessage() != null && e.getMessage().contains("locked")) {
+                    return false;
+                }
+                System.out.println(ConsoleUI.YELLOW + "Please check your password and try again, or enter 'cancel' to return to menu." + ConsoleUI.RESET);
+            }
         }
     }
 
     private static boolean promptQuickRegistration() {
         ConsoleUI.printSectionHeader("QUICK REGISTRATION");
         String name = InputValidator.readNonEmptyString(scanner, "Full Name: ");
-        String email = InputValidator.readEmail(scanner, "Email: ");
+        
+        String email;
+        while (true) {
+            email = InputValidator.readEmail(scanner, "Email: ");
+            if (registration.isEmailRegistered(email)) {
+                ConsoleUI.printWarning("An account with email '" + email + "' is already registered! Please enter a different email or login.");
+                continue;
+            }
+            break;
+        }
+
         String phone = InputValidator.readPhone(scanner, "Mobile Number (10 digits): ");
-        String password = InputValidator.readNonEmptyString(scanner, "Create Password: ");
+        String password = InputValidator.readPassword(scanner, "Create Password (min 6 characters): ", 6);
 
         try {
             User u = registration.registerUser(name, email, phone, password);

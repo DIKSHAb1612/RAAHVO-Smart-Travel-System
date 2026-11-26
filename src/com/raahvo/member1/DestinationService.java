@@ -62,7 +62,7 @@ public class DestinationService {
                     return list;
                 }
             } catch (SQLException e) {
-                ConsoleUI.printWarning("SQL Server query error: " + e.getMessage() + ". Using in-memory fallback.");
+                ConsoleUI.printWarning("Database query error: " + e.getMessage() + ". Using in-memory fallback.");
             }
         }
         return new ArrayList<>(inMemoryDb.destinations);
