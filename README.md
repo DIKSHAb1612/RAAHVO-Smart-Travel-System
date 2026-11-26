@@ -1,8 +1,8 @@
 # RAAHVO - Smart Travel Booking & Trip Planning System
 > **Tagline:** *Every Route Has a Story.*  
-> **Course:** Programming in Java (University Project - CE-3)  
+> **Course:** Object-Oriented Programming with Java  
 > **Architecture:** Pure Core Java Console Application (OOP + Collections + Concurrency + JDBC)  
-> **Database:** Microsoft SQL Server (`RAAHVO_DB`) + Synchronized In-Memory Fallback  
+> **Database:** MySQL / Microsoft SQL Server (`RAAHVO_DB`) + Synchronized In-Memory Fallback  
 > **Team Size:** 4 Members  
 
 ---
@@ -32,70 +32,23 @@ Raahvo/
 ├── compile.bat                  # One-click Windows compilation script
 ├── run.bat                      # One-click Windows application launcher
 ├── pom.xml                      # Maven project configuration (optional)
-├── README.md                    # Master Project Documentation
+├── README.md                    # Project Documentation
 ├── config/
 │   └── db.properties            # Configurable SQL Server connection parameters
 ├── database/
 │   ├── schema.sql               # Normalized SQL Server DDL script (16 tables, 3NF)
-│   └── seed_data.sql            # Rich seed data for testing and demonstrations
-├── docs/
-│   ├── PROBLEM_STATEMENT.md     # Detailed problem statement
-│   ├── PROJECT_OBJECTIVES_SCOPE.md # Measurable objectives and boundaries
-│   ├── CLASS_RESPONSIBILITY_TABLE.md # 36+ classes catalog and responsibilities
-│   ├── DATABASE_SCHEMA_ER.md    # ER diagram and relational constraint matrix
-│   ├── APPLICATION_FLOWCHART.md # Mermaid flowcharts and state diagrams
-│   ├── JAVA_CONCEPTS_MAPPING.md # Syllabus mapping with code references
-│   ├── TEAM_CONTRIBUTIONS.md    # 4-Member workload and ownership distribution
-│   ├── TEST_CASES.md            # Comprehensive test matrix
-│   └── CE3_EVALUATION_GUIDE.md  # University CE-3 Rubric mapping (25/25 marks)
-├── invoices/                    # Directory for exported text invoice files
-├── bin/                         # Compiled bytecode class files
+│   ├── seed_data.sql            # Rich seed data for testing and demonstrations
+│   ├── reset_database.sql       # Safe reset script for database
+│   └── README_DATABASE_SETUP.md # Database setup and configuration guide
 └── src/
     └── com/
         └── raahvo/
-            ├── common/          # Shared infrastructure & utilities
-            │   ├── Main.java
-            │   ├── DatabaseConnection.java
-            │   ├── InputValidator.java
-            │   ├── ConsoleUI.java
-            │   └── InMemoryDatabase.java
-            ├── exception/       # Domain-specific custom exceptions
-            │   ├── CustomException.java
-            │   ├── AuthenticationException.java
-            │   ├── InvalidBookingException.java
-            │   ├── InsufficientBudgetException.java
-            │   └── SeatUnavailableException.java
-            ├── member1/         # User & Destination Management (Member 1 - 7 Classes)
-            │   ├── User.java
-            │   ├── Admin.java
-            │   ├── Authentication.java
-            │   ├── Registration.java
-            │   ├── Login.java
-            │   ├── Destination.java
-            │   └── DestinationService.java
-            ├── member2/         # Transport & Hotel Management (Member 2 - 7 Classes)
-            │   ├── Transport.java
-            │   ├── Train.java
-            │   ├── Bus.java
-            │   ├── Flight.java
-            │   ├── Hotel.java
-            │   ├── Room.java
-            │   └── TransportService.java
-            ├── member3/         # Trip Planning & Packages (Member 3 - 7 Classes)
-            │   ├── TripPlanner.java
-            │   ├── Trip.java
-            │   ├── TravelPackage.java
-            │   ├── BudgetCalculator.java
-            │   ├── Coupon.java
-            │   ├── CouponService.java
-            │   └── Sightseeing.java
-            └── member4/         # Booking & Payment Management (Member 4 - 6 Classes)
-                ├── Booking.java
-                ├── BookingService.java
-                ├── Passenger.java
-                ├── Payment.java
-                ├── Cancellation.java
-                └── Invoice.java
+            ├── common/          # Shared infrastructure & utilities (Main, DB, Validator)
+            ├── exception/       # Domain-specific custom checked exceptions
+            ├── member1/         # User & Destination Management (7 Classes)
+            ├── member2/         # Transport & Hotel Management (7 Classes)
+            ├── member3/         # Trip Planning & Packages (7 Classes)
+            └── member4/         # Booking & Payment Management (6 Classes)
 ```
 
 ---
@@ -205,8 +158,11 @@ If you wish to run against a live Microsoft SQL Server instance:
 
 ---
 
-## 9. Evaluation Milestones & Roadmaps
-- **Evaluation Status Summary**: [`docs/EVALUATION_STATUS.md`](file:///c:/Users/PC/Desktop/Raahvo/docs/EVALUATION_STATUS.md)
-- **Evaluation 1 Roadmap (30 Classes)**: [`docs/EVALUATION_1_ROADMAP_30_CLASSES.md`](file:///c:/Users/PC/Desktop/Raahvo/docs/EVALUATION_1_ROADMAP_30_CLASSES.md)
-- **Evaluation 2 Roadmap**: [`docs/EVALUATION_2_ROADMAP.md`](file:///c:/Users/PC/Desktop/Raahvo/docs/EVALUATION_2_ROADMAP.md)
-- **Evaluation 3 Roadmap**: [`docs/EVALUATION_3_ROADMAP.md`](file:///c:/Users/PC/Desktop/Raahvo/docs/EVALUATION_3_ROADMAP.md)
+## 9. Team Members & Module Ownership
+
+| Member | Name | Module Assigned | Key Classes Implemented |
+|---|---|---|---|
+| **Member 1** | Diksha | User & Destination Management | `User`, `Admin`, `Authentication`, `Registration`, `Login`, `Destination`, `DestinationService` |
+| **Member 2** | Manya | Transport & Hotel Management | `Transport`, `Train`, `Bus`, `Flight`, `Hotel`, `Room`, `TransportService` |
+| **Member 3** | Krishu | Trip Planning & Packages | `TripPlanner`, `Trip`, `TravelPackage`, `BudgetCalculator`, `Coupon`, `CouponService`, `Sightseeing` |
+| **Member 4** | Khushbu | Booking & Payment Management | `Booking`, `BookingService`, `Passenger`, `Payment`, `Cancellation`, `Invoice` |

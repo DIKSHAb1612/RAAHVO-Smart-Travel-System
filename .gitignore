@@ -11,6 +11,14 @@ invoices/
 
 # Helper push batch scripts
 push_day*.bat
+ran.bat
+check.txt
+import_mysql.bat
+
+# Internal guides, roadmaps and separated milestones (kept locally)
+docs/
+milestones/
+*.zip
 
 
 # IDE files
